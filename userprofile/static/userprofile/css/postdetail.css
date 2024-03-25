@@ -1,0 +1,62 @@
+.post-line{
+    display: none;
+}
+
+.comment-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 20px;
+}
+
+#id_description {
+    margin: 0;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: rgb(241, 241, 241);
+    height: 40px;
+    font-size: 17px;
+    overflow: hidden;
+    transition: .5s ease;
+}
+
+#id_description:focus{
+    box-shadow: inset 0px 0px 8px 2px rgba(0,0,0,0.5);
+    background-color: white;
+}
+
+.postcomment-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f1f1f1;
+    border-radius: 100%;
+    border: none;
+    padding: 10px;
+    margin: 0 0 0 5px;
+    transition: .5s ease;
+}
+
+.postcomment-btn:hover {
+    background-color: #244b4c;
+    
+    
+}
+
+.postcomment-btn > .submit-img {
+    width: 40px;
+    padding: 10px;
+    filter: brightness(0) saturate(100%);
+    filter: brightness(0) saturate(100%) invert(26%) sepia(4%) saturate(19%) hue-rotate(132deg) brightness(99%) contrast(94%);
+    transition: .5s ease;
+}
+
+.postcomment-btn > .submit-img:hover {
+    filter: brightness(0) saturate(100%) invert(97%) sepia(86%) saturate(4%) hue-rotate(203deg) brightness(119%) contrast(86%);
+}

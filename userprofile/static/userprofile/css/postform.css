@@ -1,0 +1,75 @@
+
+.postform {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    align-content: flex-end;
+}
+
+.postform > #profile-btn {
+    display: flex;
+    align-self: flex-start;
+    margin: 0 0 10px 0;
+    width: 40px;
+    height: 40px;
+    cursor:default;
+}
+
+#id_author, #id_image{
+    display: none;
+}
+
+#id_description {
+    margin: 10px 5px 20px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 30px;
+    resize: none;
+    border: 0;
+}
+
+
+#id_description:focus {
+    outline: 0;
+}
+
+.pf-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.pf-btn > button {
+    border: none;
+    background: none;
+}
+
+
+
+.pf-icon {
+    width: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+#post_id {
+    display: flex;
+    justify-self: flex-end;
+}
+
+#pf-post-btn {
+    width: 65px;
+    height: 35px;
+    border: 2px solid rgb(59, 59, 59);
+    border-radius: 25px;
+    cursor: pointer;
+}

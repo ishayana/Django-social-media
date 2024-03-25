@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'userprofile/css/feed.css' %}">
+{% endblock %}    
+
+{% block title %}
+    circleup
+{% endblock %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+        {% include 'userprofile\feed.html' %}
+        </form>
+    {% else %}
+        <section class="reg-aligner">
+            <div class="home-cont">
+                <div class="bnr">
+                    <h1 class="bnr-title">Welcome to <span id="bnr-title-clr">CircleUp.</span></h1>
+                    <h3 class="bnr-txt">Connect with People, Share Your World</h3>
+                    <img class="img-bnr" src="../static/img/funnyghost.png" alt="funnyghost">
+                </div>
+                <!-- Registration 'form' included from accounts-app -->
+                <div class="reg">
+                    {% include 'accounts/registeration.html' %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+

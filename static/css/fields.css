@@ -1,0 +1,26 @@
+.fields {
+    padding: 5%;
+    box-sizing: border-box;
+    margin: 5px 0%;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffffff;
+    width: 170px;
+    height: 30px;
+    font-family: 'Dosis', sans-serif;
+    transition: all .7s ease-in;
+}
+
+.fields:hover {
+    box-shadow: inset 0 0 5px black;
+    color: black;
+    background-color: white;
+    transition: all .7s ease-out;
+}
+
+.fields:focus {
+    outline: none;
+    box-shadow: inset 0 0 5px rgb(0, 0, 0);
+    background-color: white;
+    color: black;
+} 

@@ -1,0 +1,34 @@
+{% extends 'userprofile/base.html' %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userprofile/css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'userprofile/css/feed.css' %}">
+    <link rel="stylesheet" href="{% static 'userprofile/css/postupdate.css' %}">
+    
+{% endblock %}
+
+{% block main %}
+{% load static %}
+    <form action="" method="Post" novalidate>
+        {% csrf_token %}
+
+        <div class="card-container">
+            <!-- profile photo -->
+            <div class="post-header-container">
+                <a href="#" id="profile-btn" class="nav-icon">{{ requsername|slice:":1"|upper }}</a>
+                {% if author_id == request.user.id %}
+                    <input class="update-btn" type="submit" value="Update">
+
+                {% endif %}
+            </div>
+            {{ formupdate }}
+            <div class="post-footer-container">
+                <img class="post-icon" src="{% static 'userprofile/img/post/like.png' %}"></img>
+                <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
+                <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
+                <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
+            </div>
+        </div>
+    </form>
+{% endblock %}

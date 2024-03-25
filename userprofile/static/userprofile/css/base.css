@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Dosis&display=swap');
+
+body{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    background-color: #142828;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.base-container {
+    max-width: 1300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    height: 90vh;
+}
+
+
+.main-bar {
+    flex: 2;
+    min-width: 400px;
+    width: 50%;
+    padding: 20px 15px 10px 20px;
+    z-index: 1;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+ }
+
+
+.right-bar , .left-bar {
+    flex: 1;
+    background-color: rgb(245, 245, 245);
+    width: 30%;
+    z-index: 0;
+}
+
+.left-bar{
+    position: relative;
+    left: 40px;
+    border-radius: 45px 0 0 45px;
+    
+}
+
+.right-bar{
+    position: relative;
+    right: 40px;
+    border-radius: 0 45px 45px 0;
+}
+
+.base-container > .main-bar {
+    word-wrap: break-word;
+    overflow-y: scroll;
+    background-color: #ffffff;
+    border-radius: 45px;
+}
+
+.base-container > div::-webkit-scrollbar {
+    width: 5px;
+}
+
+.base-container > div::-webkit-scrollbar-thumb {
+    background-color: rgba(32, 32, 32, .2); /* Set the color of the thumb */
+    border-radius: 6px; /* Optional: round the corners of the thumb */
+}
+
+@media (max-width: 1295px) {
+    .left-bar{
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 1018px) {
+    .right-bar{
+        display: none;
+    }
+    .main-bar{
+        margin: 0 30px 0 0;
+    }
+}
+
+
+@media (max-width: 630px) {
+    .main-bar{
+        height: 100%;
+        margin: 0;
+        min-width: 300px;
+    }
+    
+    .base-container{
+        max-width: 120vw;
+        
+    }
+    
+    .left-bar{
+        min-width: 110px;
+        max-width: 50px;
+        left: 0;
+        height: 10;
+        transform: translate(50px);
+        margin-left: -50px;
+    }
+    
+    .left{
+        padding: 0 10px 0 0;
+        
+    }
+
+
+}

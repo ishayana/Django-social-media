@@ -1,0 +1,86 @@
+
+.alert {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    top: 40%;
+    right: 0;
+    left: 0;
+    font-family: "Dosis", sans-serif;
+}
+
+.success-alert {
+    display: flex;
+    flex: 1;
+    max-width: 350px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(34, 121, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.info-alert {
+    display: flex;
+    flex: 1;
+    max-width: 350px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 121, 115, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.warning-alert {
+    display: flex;
+    flex: 1;
+    max-width: 350px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(134, 121, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.danger-alert {
+    display: flex;
+    flex: 1;
+    max-width: 350px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(208, 4, 18, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.alert-container{
+    display: flex;
+    flex-basis: 90%;
+    justify-content: center;
+    align-items: center;
+}
+
+.alertxt{
+    margin: 10px;
+    color: rgba(255, 255, 255, 0.60);
+}
+
+
+.closebtn-container{
+    display: flex;
+    flex-basis: 10%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.closebtn{
+    
+    transform: translateY(-3px);
+    color: rgba(255, 255, 255, 0.60);
+    font-weight: light;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}

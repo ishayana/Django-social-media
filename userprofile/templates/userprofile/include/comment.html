@@ -1,0 +1,52 @@
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userprofile/css/post.css' %}" type="text/css">
+{% endblock %}
+    <hr class="post-line" style="border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
+    <div class="card-container">
+        <!-- profile photo -->
+        <div class="post-header-container">
+            <div class="author">
+                <a href="{% url 'userprofile:profile' comment.author.username %}" id="profile-btn" class="nav-icon">{{ comment.author.username|slice:":1"|upper }}</a>
+                <a href="{% url 'userprofile:profile' comment.author.username %}" id="username-btn">{{ comment.author.username }}</a>
+            </div>
+            <div class="dropdown">
+            {% if request.user.id == comment.author_id %}
+                <button class="dropbtn">
+                    <img src="{% static 'userprofile/img/post/menu.png' %}" ></img>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'userprofile:post_update' comment.author comment.id %}"><img src="{% static 'userprofile/img/comment/edit.png' %}" alt="">Edit</a>
+                    <a href="{% url 'userprofile:post_delete' comment.author comment.id %}"><img src="{% static 'userprofile/img/comment/trash.png' %}" alt="">Delete</a>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+        <a class="card" href="{% url 'userprofile:comment_details' comment.author comment.id  %}">{{ comment.description|linebreaksbr|safe }}</a>
+        <div class="post-footer-container">
+            <button class="like" href="#" onclick="toggleLikeImage('{{ comment.id }}')">
+                <img class="post-icon" id="postlike_{{ post.id }}" src="{% static 'userprofile/img/post/like.png' %}"></img>
+            </button>
+            <a class="comment" href="{% url 'userprofile:comment_details' comment.author.username comment.id  %}">
+                <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
+                {% with comment.replycomment.all.count as commentsNum %}
+                <p class="comment-count">
+                    {% if commentsNum %}
+                        {{ commentsNum }}
+                    {% else %}
+                        {{ '' }}
+                    {% endif %}
+                </p>
+                {% endwith %}
+            </a>
+            <button class="save" href="#">
+                <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
+            </button>
+            <button class="share" href="#">
+                <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
+            </button>
+        </div>
+    </div>

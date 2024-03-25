@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <!-- alert -->
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <!-- base css -->
+    <link rel="stylesheet" href="{% static 'userprofile/css/base.css' %}">
+    <!-- icon -->
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+    <!-- postform -->
+    <link rel="stylesheet" href="{% static 'userprofile/css/postform.css' %}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+    {% include 'userprofile/include/navbar.html' %}
+    {% include 'include/alert.html' %}
+    {% block body %}
+    {% endblock %}
+    <section class="base-container">
+        <div class="left-bar">
+            {% block left %}
+            {% endblock %}    
+        </div>
+
+        <div class="main-bar">
+            {% block main %}
+            {% endblock %}
+        </div>
+
+        <div class="right-bar">
+            {% block right %}
+            {% endblock %}
+        </div>
+    </section>
+    
+
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

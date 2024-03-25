@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Ysabeau:wght@300&display=swap');
+
+.list-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    z-index: 99;
+    backdrop-filter: none;
+    visibility: hidden;
+    transition: backdrop-filter 2s ease, background-color .5s ease;
+}
+
+#h3-title {
+    margin: 10px 0;
+    font-family: 'Noto Sans', sans-serif;
+    color: #2b4748;
+    font-weight: 1000;
+}
+
+.rel-list {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 17px;
+    visibility: hidden;
+    transform: scale(0.01);
+    position: absolute;
+    max-width: 500px;
+    min-width: 250px;
+    width: 40%;
+    height: 80%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    backdrop-filter: blur(25px) saturate(100%);
+    -webkit-backdrop-filter: blur(25px) saturate(100%);
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(0.01, 0.55, 0.13, 1);
+}
+
+.rel-list > .user-list {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin: 2px 0;
+    border-radius: 10px;
+    transition: ease .4s;
+    text-decoration: none;
+}
+
+.rel-list > .user-list:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    
+}
+
+#user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+#user > #profile-btn {
+    margin: 0 5px 0;
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
+}
+
+#username {
+    font-family: 'Noto Sans', sans-serif;
+    color: #5e5e5e;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#btn-relation {
+    display: flex;
+}
+
+#btn-relation > .btn-follow, #btn-relation > .btn-unfollow{
+    font-family: 'Noto Sans', sans-serif;
+    border: none;
+    width: 58px;
+    color: #ffffff;
+    font-size: 12px;
+    margin: 0 8px;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.rel-list-active{
+    visibility: visible;
+    transform: scale(1);
+}
+
+.list-container-active {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px) saturate(159%);
+    -webkit-backdrop-filter: blur(5px) saturate(159%);
+    transform: scale(1);
+    visibility: visible;
+}
+
+.noflwcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+}
+
+.noflwcontainer > p {
+    color: rgba(0, 0, 0, 0.308);
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}

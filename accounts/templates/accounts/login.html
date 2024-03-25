@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="log-aligner">
+        <div class="login-container">
+            <h2 class="reg-title">Login!<p class="login-txt">We're thrilled to see you again!</p></h2>
+            <form class="login-form" action="" method="POST">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input class="def-btn" type="submit" value="Login">
+            </form>
+            <p class="have-acc">Don't have an account?  <a href="{% url 'home:home' %}">Sing up</a></p>
+            <div id="login-with-container">
+                <hr class="line"></hr>
+                <p class="word">or continue with:</p>
+                <hr class="line"></hr>
+            </div>
+            <div class="login-with">
+                <a class="logo-abj" id="google" href="#"><img class="social-logo" src="{% static 'accounts//img/google.png' %}"></img></a>
+                <a class="logo-abj" id="facebook" href="#"><img class="social-logo" src="{% static 'accounts/img/facebook.png' %}"></img></a>
+                <a class="logo-abj" id="apple" href="#"><img class="social-logo" src="{% static 'accounts/img/apple.png' %}"></img></a>
+            </div>
+            <hr id="hline">
+            <a id="forgot-pass" href="{% url 'accounts:reset_password' %}">Forgot Password?</a>
+        </div>
+    </div>
+{% endblock %}

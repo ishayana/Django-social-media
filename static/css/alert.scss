@@ -1,0 +1,41 @@
+$alert-padding: 20px;
+$alert-radius: 20px;
+$alert-backdrop: blur(10px);
+$alert-talign: center;
+$alert-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+@mixin alert-style {
+    padding: $alert-padding;
+    border-radius: $alert-radius;
+    backdrop-filter: $alert-backdrop;
+    text-align: $alert-talign;
+    box-shadow: $alert-shadow;
+}
+
+.alert-container {
+	margin: 100px;
+}
+
+.success-alert {
+    background-color: rgba(34, 121, 0, 0.3);
+    @include alert-style;
+}
+
+.info-alert {
+    background-color: rgba(34, 121, 0, 0.3);
+    @include alert-style;
+}
+
+.warning-alert {
+    background-color: rgba(34, 121, 0, 0.3);
+    @include alert-style;
+}
+
+.danger-alert {
+    background-color: rgba(208, 4, 18, 0.3);
+    @include alert-style;
+}
+
+strong{
+    color: white;
+}

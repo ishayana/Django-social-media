@@ -1,0 +1,49 @@
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userprofile/css/post.css' %}" type="text/css">
+{% endblock %}
+    <hr class="post-line" style="border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
+    <div class="card-container">
+        <!-- profile photo -->
+        <div class="post-header-container">
+            <div class="author">
+                <a href="{% url 'userprofile:profile' post.author.username %}" id="profile-btn" class="nav-icon">{{ post.author.username|slice:":1"|upper }}</a>
+                <a href="{% url 'userprofile:profile' post.author.username %}" id="username-btn">{{ post.author.username }}</a>
+            </div>
+            <div>{{ post.created | timesince }}</div>
+            <div class="dropdown">
+            {% if request.user.id == post.author_id %}
+                <button class="dropbtn">
+                    <img src="{% static 'userprofile/img/post/menu.png' %}" ></img>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'userprofile:post_update' post.author.username post.id %}"><img src="{% static 'userprofile/img/post/edit.png' %}" alt="">Edit</a>
+                    <a href="{% url 'userprofile:post_delete' post.author.username post.id %}"><img src="{% static 'userprofile/img/post/trash.png' %}" alt="">Delete</a>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+        <a class="card" href="{% url 'userprofile:post' post.author.username post.id  %}">{{ post.description|linebreaksbr|safe }}</a>
+        {% if post.image %}
+            <img class="post-img" src="{{ post.image.url }}" alt="post-image">
+            <br>
+        {% endif %}
+        <div class="post-footer-container">
+            <button class="like" href="#" onclick="toggleLikeImage('{{ post.id }}')">
+                <img class="post-icon" id="postlike_{{ post.id }}" src="{% static 'userprofile/img/post/like.png' %}"></img>
+            </button>
+            <a class="comment" href="{% url 'userprofile:post' post.author.username post.id  %}">
+                <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
+                <p class="comment-count">{{ commentsNum }}</p>
+            </a>
+            <button class="save" href="#">
+                <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
+            </button>
+            <button class="share" href="#">
+                <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
+            </button>
+        </div>
+    </div>

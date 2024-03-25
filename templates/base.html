@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %} {% endblock %} </title>
+    <!-- Base stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- button style sheet -->
+    <link rel="stylesheet" href="{% static 'css/button.css' %}">
+    <!-- fields style sheet -->
+    <link rel="stylesheet" href="{% static 'css/fields.css' %}">
+    <!-- Alert style sheet -->
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
+    <!-- icon -->
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+    {% block style %} {% endblock %}
+    
+    <!-- The sytle is for base page! -->
+    <style>
+        body {
+            background-color: rgb(32, 32, 32);
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'include/navbar.html' %}
+    {% include 'include/alert.html' %}
+    {% block body %} {% endblock %}
+</body>
+</html>

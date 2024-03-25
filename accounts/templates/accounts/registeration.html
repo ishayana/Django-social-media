@@ -1,0 +1,10 @@
+
+<h2 class="reg-title">Sign Up, Now!<p class="reg-txt">we are happy to have you with us.</p></h2>
+
+
+<form class="reg-form" action="" method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input class="def-btn" type="submit" value="Sign up!">
+</form>
+<p  class="have-acc">Have an account? <a class="have-acc-link" href="{% url 'accounts:login' %}">Log in</a></p>

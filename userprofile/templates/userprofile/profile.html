@@ -1,0 +1,176 @@
+{% extends 'userprofile/base.html' %}
+
+{% block title %}
+    {{ username | capfirst }}
+{% endblock %}
+
+{% block body %}
+    <div class="list-container">
+        <div id="follower-list" class="rel-list">
+            <h3 id="h3-title">Follower</h3>
+                {% for item, is_following_req_user in follower_list %}
+                    <div class="user-list">
+                        <div id="user">
+                            <div id="profile-btn" class="nav-icon">{{ item.username|slice:":1"|upper }}</div>
+                            <a id="username" href="{% url 'userprofile:profile' item.username %}">{{ item.username }}</a>
+                        </div>
+                        <div id="btn-relation">
+                            {% if is_following_req_user %}
+                                <a href="{% url 'userprofile:user_unfollow' item %}" class="btn-unfollow">Unfollow</a>
+                            {% else %}
+                                <a href="{% url 'userprofile:user_follow' item %}" class="btn-follow">Follow</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <section class="noflwcontainer">
+                        <p>No Follower!</p>
+                    </section>
+                {% endfor %}
+        </div>
+    </div>
+
+    <div class="list-container">
+        <div id="following-list" class="rel-list">
+            <h3 id="h3-title">Following</h3>
+                {% for item in followings %}
+                <div class="user-list" href="{% url 'userprofile:profile' item.following %}">
+                    <div id="user" >
+                        <div id="profile-btn" class="nav-icon">{{ item.following.username|slice:":1"|upper }}</div>
+                        <p id="username" >{{ item.following }}</p>
+                    </div>
+                    <div id="btn-relation">
+                        <a href="{% url 'userprofile:user_unfollow' item.following %}" class="btn-unfollow">Unfollow</a>
+                    </div>
+                </div>
+                {% empty %}
+                    <section class="noflwcontainer">
+                        <p>No Follower!</p>
+                    </section>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userprofile/css/feed.css' %}">
+    <link rel="stylesheet" href="{% static 'userprofile/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'userprofile/css/include/relation-list.css' %}">
+{% endblock %}
+
+{% block left %}
+    <div class="left">
+        <header class="user-info">
+            <div id="profile-btn" class="nav-icon">{{ username|slice:":1"|upper }}</div>
+            <h3>{{ username | capfirst }}</h3>
+                {% if not is_following and request.user.username != username %}
+                    <div class="btn-follow">
+                        <a href="{% url 'userprofile:user_follow' username %}">Follow</a>
+                    </div>
+                    {% elif is_following and request.user.username != username %}
+                    <div class="btn-unfollow">
+                        <a href="{% url 'userprofile:user_unfollow' username %}">Unfollow</a>
+                    </div>
+                {% endif %}
+            <div class="rel">
+                <button id="follower">
+                    <p>Follower</p>
+                    <p>{{ followers.count }}</p>
+                </button>
+                <button id="following">
+                    <p>Following</p>
+                    <p>{{ followings.count }}</p>
+                </a>
+                <button id="posts">
+                    <p>Posts</p>
+                    <p>{{ posts.count }}</p>
+                </a>
+            </div>
+        </header>
+        {% if is_owner %}
+        <section class="menu-container">
+            <ul class="menu">
+                <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/messages.png' %}" alt=""><p>Message</p></a></li>
+                <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/settings.png' %}" alt=""><p>Settings</p></a></li>
+                <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/support.png' %}" alt=""><p>Support</p></a></li>
+                <li><a id="signout-btn" href="{% url 'accounts:logout' %}"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/sign-out.png' %}" alt=""><p>Logout</p></a></li>
+            </ul>
+        </section>
+        {% endif %}
+        <footer>
+            <p>© {{ year }} ishayana</p>
+        </footer>
+    </div>
+{% endblock %}
+
+
+{% block main %}
+    {% if request.user.username == username %}
+        {% include 'userprofile/include/postform.html' %}
+    {% endif %}
+
+    <!-- Load posts html -->
+    {% for post, commentsNum in posts_list %}
+    {% include 'userprofile/include/post.html' %}
+    {% endfor %}
+    
+{% endblock %}
+
+{% block script %}
+    <script>
+        const follower = document.querySelector('#follower');
+        const following = document.querySelector('#following');
+        const backDrop = document.querySelector(".list-container");
+        
+        
+        follower.addEventListener('click', () =>  {
+            const relList = document.querySelector("#follower-list");
+            backDrop.classList.add("list-container-active");
+            relList.classList.add("rel-list-active");
+            relList.innerHTML = document.querySelector("#follower-list").innerHTML;
+        });
+        
+        
+        following.addEventListener('click', () => {
+            const relList = document.querySelector("#following-list")
+            backDrop.classList.add('list-container-active');
+            relList.classList.add('rel-list-active');
+            relList.innerHTML = document.querySelector("#following-list").innerHTML;
+        });
+        
+
+
+
+        backDrop.addEventListener('click' , function(event){
+            const followerList = document.querySelector('#follower-list');
+            const followingList = document.querySelector('#following-list');
+            var isClickInside = (!followerList.contains(event.target))
+            if (isClickInside){
+                backDrop.classList.remove('list-container-active');
+                followerList.classList.remove('rel-list-active');
+                followingList.classList.remove('rel-list-active');
+            }
+        });
+
+
+
+
+
+
+        // backDrop.addEventListener('click', function(event) {
+        //     const relLists = document.querySelectorAll(".rel-list");
+        //     relLists.forEach(relList => {
+        //         var isClickInside = relList.contains(event.target);
+        //         console.log(isClickInside);
+        //     });
+        //     if (!isClickInside) {
+        //         relList.classList.remove("rel-list-active");
+        //         backDrop.classList.remove("list-container-active");
+        //     }
+        // });
+
+    </script>
+{% endblock %}
+
+

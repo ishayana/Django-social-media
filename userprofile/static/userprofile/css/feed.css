@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Ysabeau:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Gurmukhi&display=swap');
+
+/* left bar */
+
+.left {
+    width: 90%;
+    height: 100%;
+    overflow: hidden;
+    padding: 0 20px 0 5px;
+}
+
+.left-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-title > h3 {
+    margin: 10px 0;
+    font-family: 'Noto Sans', sans-serif;
+    color: #2b4748;
+    font-weight: 1000;
+}
+
+.profile-btn {
+    width: 10px;
+}
+
+.friends{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#username {
+    text-decoration: none;
+    font-family: 'Noto Sans', sans-serif;
+    color: #2d6b6d;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+hr.hr-users{
+    border: 0;
+    height: 1px;
+    background: none;
+    background-image: linear-gradient(to right, rgba(204, 204, 204, 0.2), rgba(204, 204, 204, 0.5), rgba(204, 204, 204, 0.2));
+}
+
+/* main bar */
+
+.feedcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100vw;
+}
+
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    padding: 15px 10px 10px 10px;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+}
+

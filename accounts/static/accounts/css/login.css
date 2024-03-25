@@ -1,0 +1,158 @@
+.log-aligner {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 48px)
+
+}
+
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 400px;
+    margin: 120px 0 ;
+    flex-direction: column;
+    background-color: #d3d3d3;
+    border-radius: 20px;
+    box-shadow: 15px 15px 50px rgb(0, 0, 0);
+}
+
+.reg-title {
+    font-family: 'Abele', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    color: #585858;
+    margin: 0px 0 2px;
+    letter-spacing: -1.5px;
+    font-weight: 200;
+}
+
+.login-txt {
+    font-size: 11px;
+    margin: 10px 0;
+    letter-spacing: normal;
+}
+
+.login-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+.have-acc {
+    margin: 5px 0 5px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #585858;
+}
+
+.have-acc > a {
+    text-decoration: none;
+    color:#163536;
+    font-weight: 900;
+}
+
+.login-with-container{
+    text-align: center;
+}
+
+.word{
+    display: inline-block;
+    font-family: 'Dosis', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #585858;
+}
+
+.line{
+    display: inline-block;
+    width: 30px;
+}
+
+.login-with{
+    width: 150px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#google{
+    background-color: rgb(255, 255, 255, 255);
+}
+
+#facebook{
+    background-color: rgb(30, 64, 92);
+}
+
+#apple{
+    background-color: rgb(0, 0, 0);
+}
+
+.logo-abj{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 10px;
+}
+
+.social-logo {
+    object-fit: cover;
+    height: 25px;
+}
+
+#hline{
+    color: #163536;
+    width: 100px;
+    margin-top: 10px;
+}
+
+#forgot-pass {
+    font-family: 'Dosis', sans-serif;
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #585858;
+}
+
+
+@media (max-width: 450px) {
+
+
+    .log-aligner {
+        align-items: flex-start;
+        background-color: #d3d3d3;
+        align-items: center;
+    }
+
+    .login-container{
+        display: flex;
+        flex-direction: column;
+        margin: 70px 40px;
+        height: 500px;
+        justify-content: flex-start;
+        background: none;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .fields, .def-btn{
+        width: 300px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+
+    .have-acc{
+        font-size: 15px;
+    }
+}

@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Gurmukhi&family=Lora&display=swap');
+
+#id_description {
+    padding: 10px;
+    font-size: 18px;
+    height: auto;
+    font-family: 'Lora', serif;
+}
+
+.update-btn {
+    width: 65px;
+    height: 35px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #163536;
+    background-color: rgb(255, 189, 65);
+    margin: 0 10px;
+}
+
+.update-btn:hover {
+    background-color: rgb(255, 173, 22);
+    transition: ease-out .8s;
+}

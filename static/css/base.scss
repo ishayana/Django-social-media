@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Dosis&display=swap');
+
+$pliceblue: rgb(54, 97, 107);
+$junglegreen: rgb(32, 47, 51);
+$gamboge: rgb(235, 155, 5);
+$blackolive: rgb(63, 63, 63);
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li, a, button {
+    font-family: "Dosis", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: $blackolive;
+    text-decoration: none;
+}
+
+header { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    
+}
+
+.logo { 
+    cursor: pointer;
+    width: 25px
+}
+
+.nav_links {
+    list-style: none;
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a {
+    transition: all 0.7s ease;
+}
+
+.nav_links li a:hover {
+    color: $gamboge;
+}
+
+button {
+    padding: 5px 18px;
+    color: $gamboge;
+    background-color: $blackolive;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.7s ease-out;
+}
+
+button:hover {
+    background-color:$pliceblue;
+    color: rgb(202, 202, 202);
+    transition: all 0.7s ease-out;
+    border-radius: 20px 20px 20px 0;
+}

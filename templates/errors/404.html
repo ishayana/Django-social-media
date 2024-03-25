@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/errors/404.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="not-found-container">
+        <H1 class="not-found-error">404 :(</H1>
+        <p>Sorry, the page you are looking for might be in another castle.</p>
+    </div>
+{% endblock %}

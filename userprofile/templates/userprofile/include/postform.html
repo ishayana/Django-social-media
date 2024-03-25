@@ -1,0 +1,25 @@
+
+{% load static %}
+    
+
+
+<form class="postform" id="postform" action="{% url 'home:home' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div id="profile-btn" class="nav-icon">{{ requsername|slice:":1"|upper }}</div>
+    {{ postform|safe }}
+    <div class="pf-footer">
+        <div class="pf-btn">
+            <label for="id_image">
+                <img class="pf-icon" src="{% static 'userprofile/img/postform/picture.png' %}">
+            </label>
+            
+            <button>
+                <img class="pf-icon" src="{% static 'userprofile/img/postform/emoji.png' %}">
+            </button>
+            <button>
+                <img class="pf-icon" src="{% static 'userprofile/img/postform/gif.png' %}">
+            </button>
+        </div>
+        <input id="pf-post-btn" type="submit" value="Post">
+    </div>
+</form>

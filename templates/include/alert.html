@@ -1,0 +1,16 @@
+
+
+{% if messages %}
+    {% for msg in messages %}
+        <div class="alert">
+            <div class="{{ msg.tags }}-alert">
+                <div class="alert-container">
+                    <p class="alertxt">{{ msg }}</p>
+                </div>
+                <div class="closebtn-container">
+                    <span class="closebtn" onclick="this.parentNode.parentNode.style.display='none';">&times;</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
