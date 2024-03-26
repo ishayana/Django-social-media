@@ -99,12 +99,8 @@ class UserfeedView(View):
             newpost = postform.save(commit=False)
             newpost.author = request.user
             newpost.save()
-            print("New post saved successfully!")
-            file_size = os.path.getsize(newpost.image.path)
-            print(f"Image file size: {file_size} bytes")
             messages.success(request, 'Your post uploaded successfully!', 'success')
             return redirect('home:home')
-        print("Form is not valid:", postform.errors)
         return render(request, self.template_name, {'postform' : postform})
 
 #for show post detail (like, comments, ...)

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'home',
     'accounts',
     'userprofile',
-    'emoji'
 ]
 
 MIDDLEWARE = [

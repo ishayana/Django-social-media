@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .utils import Resize_image
+import os
 
 
 #Post model
@@ -14,7 +15,8 @@ class PostModel(models.Model):
 
     def save(self, *args, **kwargs):
         if self.image:  # Check if an image is provided
-            resized_image = Resize_image(self.image)
+            resized_image_path = Resize_image(self.image)
+            self.image.name = os.path.basename(resized_image_path)
         super().save(*args, **kwargs)
 
     def __str__(self):
