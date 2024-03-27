@@ -68,6 +68,6 @@ This project is licensed under the MIT License - see the [MIT](https://chooseali
 
  - Thank you to the Django community for providing such a powerful web framework.
  - Icons used in this project are sourced from [Flaticon](https://www.flaticon.com/)
- - Illustration used in this project are sourced form [icons8](https://icons8.com)
+ - Illustrations used in this project are sourced from [icons8](https://icons8.com)
 
 
