@@ -1,8 +1,12 @@
+⚡Note: This project is still **unfinished**, and I am actively working on it. Feel free to contribute or provide feedback!
+<br>
+<br>
+<br>
 
-# Django Social Media Project(CircleUp!)
+# Django Social Media Project(CircleUp!) 🐍🌐
 
-Welcome to **CircleUp**, my social media platform! This project is built using Django, a high-level Python web framework, and it provides features similar to Twitter, including sign up, sign in, posting, following other users, and liking posts.
-## Features
+Welcome to **CircleUp** 👋, my social media platform! This project is built using Django, a high-level Python web framework, and it provides features similar to Twitter, including sign up, sign in, posting, following other users, and liking posts.
+## Features 🚀
 
 *   **User Authentication**: Users can sign up for a new account or sign in using their existing credentials.
 *   **Post Creation**: Users can create new posts with text and optionally upload an image.
@@ -10,7 +14,7 @@ Welcome to **CircleUp**, my social media platform! This project is built using D
 *   **Likes**: Users can like posts created by others.
 *   **Responsive Design**: The platform is designed to work seamlessly across different devices, including desktops, tablets, and smartphones.
 
-## Installation
+## Installation 🛠️
 
 1. Clone the repository:
 
@@ -55,14 +59,15 @@ We welcome contributions from the community! If you'd like to contribute to this
 5. Submit a pull request detailing your changes.
 
 
-## License
+## License 🤝
 
 This project is licensed under the MIT License - see the [MIT](https://choosealicense.com/licenses/mit/) file for details.
 
 
-## Acknowledgements
+## Acknowledgements 🙏
 
  - Thank you to the Django community for providing such a powerful web framework.
  - Icons used in this project are sourced from [Flaticon](https://www.flaticon.com/)
- - Illustration used in this project are sourced form [icons8](https://icons8.com)
+ - Illustrations used in this project are sourced from [icons8](https://icons8.com)
+
 
