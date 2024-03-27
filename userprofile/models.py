@@ -14,10 +14,9 @@ class PostModel(models.Model):
     edit = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if self.image:  # Check if an image is provided
-            resized_image_path = Resize_image(self.image)
-            self.image.name = os.path.basename(resized_image_path)
         super().save(*args, **kwargs)
+        if self.image: 
+            Resize_image(self.image)
 
     def __str__(self):
         return self.description
