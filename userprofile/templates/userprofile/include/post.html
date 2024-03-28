@@ -2,6 +2,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'userprofile/css/post.css' %}" type="text/css">
 {% endblock %}
+{% load custom_filters %}
     <hr class="post-line" style="border: 0;
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -12,8 +13,8 @@
             <div class="author">
                 <a href="{% url 'userprofile:profile' post.author.username %}" id="profile-btn" class="nav-icon">{{ post.author.username|slice:":1"|upper }}</a>
                 <a href="{% url 'userprofile:profile' post.author.username %}" id="username-btn">{{ post.author.username }}</a>
+                <div class="timesince">{{ post.created | timesince_custom }}</div>
             </div>
-            <div>{{ post.created | timesince }}</div>
             <div class="dropdown">
             {% if request.user.id == post.author_id %}
                 <button class="dropbtn">
