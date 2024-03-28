@@ -13,7 +13,7 @@
             <div class="author">
                 <a href="{% url 'userprofile:profile' post.author.username %}" id="profile-btn" class="nav-icon">{{ post.author.username|slice:":1"|upper }}</a>
                 <a href="{% url 'userprofile:profile' post.author.username %}" id="username-btn">{{ post.author.username }}</a>
-                <div class="timesince">{{ post.created | timesince_custom }}</div>
+                <div class="timesince">•    {{ post.created | timesince_custom }}</div>
             </div>
             <div class="dropdown">
             {% if request.user.id == post.author_id %}

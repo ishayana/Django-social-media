@@ -9,7 +9,6 @@ def timesince_custom(post_datetime):
     local_pdatetime = timezone.localtime(post_datetime)
     date_now = timezone.localtime(timezone.now())
     difference_seconds = (date_now - local_pdatetime).total_seconds()
-    print(date_now, local_pdatetime)
     if 1 < difference_seconds < 59:
         return f"{int(difference_seconds)}s"
     elif difference_seconds < 59 * 60:

@@ -201,7 +201,7 @@ footer > p {
         display: none;
     }
 
-    .menu > li, a {
+    .menu > li, li a {
         width: 40px;
     }
 

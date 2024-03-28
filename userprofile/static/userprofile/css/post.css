@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Gurmukhi&family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap')
 
 hr.post-line {
     border: 0;
@@ -19,7 +20,7 @@ hr.post-line {
     align-items: center;
 }
 
-#profile-btn{
+.author #profile-btn{
     display: flex;
     width: 35px;
     height: 35px;
@@ -38,7 +39,7 @@ hr.post-line {
 
 .timesince{
     margin: 0 0 2px 5px;
-    font-size: 11px;
+    font-size: 12px;
     font-family: 'Noto Sans', sans-serif;
     color: #000000;
     opacity: .6;
@@ -106,12 +107,12 @@ hr.post-line {
 }
 
 .card {
-    font-family: 'Lora', serif;
-    font-size: 15px;
+    font-family: "Merriweather", serif;
+    font-size: 18px;
     text-decoration: none;
     color: black;
     margin: 20px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .post-img{
