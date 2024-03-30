@@ -57,55 +57,28 @@
     <link rel="stylesheet" href="{% static 'userprofile/css/feed.css' %}">
     <link rel="stylesheet" href="{% static 'userprofile/css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'userprofile/css/include/relation-list.css' %}">
+    <link rel="stylesheet" href="{% static 'userprofile/css/include/profile-left.css' %}">
 {% endblock %}
 
 {% block left %}
-    <div class="left">
-        <header class="user-info">
-            <div id="profile-btn" class="nav-icon">{{ username|slice:":1"|upper }}</div>
-            <h3>{{ username | capfirst }}</h3>
-                {% if not is_following and request.user.username != username %}
-                    <div class="btn-follow">
-                        <a href="{% url 'userprofile:user_follow' username %}">Follow</a>
-                    </div>
-                    {% elif is_following and request.user.username != username %}
-                    <div class="btn-unfollow">
-                        <a href="{% url 'userprofile:user_unfollow' username %}">Unfollow</a>
-                    </div>
-                {% endif %}
-            <div class="rel">
-                <button id="follower">
-                    <p>Follower</p>
-                    <p>{{ followers.count }}</p>
-                </button>
-                <button id="following">
-                    <p>Following</p>
-                    <p>{{ followings.count }}</p>
-                </a>
-                <button id="posts">
-                    <p>Posts</p>
-                    <p>{{ posts.count }}</p>
-                </a>
-            </div>
-        </header>
-        {% if is_owner %}
-        <section class="menu-container">
-            <ul class="menu">
-                <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/messages.png' %}" alt=""><p>Message</p></a></li>
-                <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/settings.png' %}" alt=""><p>Settings</p></a></li>
-                <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/support.png' %}" alt=""><p>Support</p></a></li>
-                <li><a id="signout-btn" href="{% url 'accounts:logout' %}"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/sign-out.png' %}" alt=""><p>Logout</p></a></li>
-            </ul>
-        </section>
-        {% endif %}
-        <footer>
-            <p>© {{ year }} ishayana</p>
-        </footer>
-    </div>
+<div class="left">
+    {% include "userprofile/include/profile-left/profile-left.html" %}
+    <footer>
+        <p>© {{ year }} ishayana</p>
+    </footer>
+</div>
 {% endblock %}
-
-
-{% block main %}
+    
+    
+    {% block main %}
+    <div class="main-userinfo">
+        {% include "userprofile/include/profile-left/user-info.html" %}
+    </div>
+    <br>
+    <hr class="post-line" style="border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
     {% if request.user.username == username %}
         {% include 'userprofile/include/postform.html' %}
     {% endif %}
@@ -119,56 +92,49 @@
 
 {% block script %}
     <script>
-        const follower = document.querySelector('#follower');
-        const following = document.querySelector('#following');
-        const backDrop = document.querySelector(".list-container");
-        
-        
-        follower.addEventListener('click', () =>  {
+document.addEventListener('DOMContentLoaded', function() {
+    const backDrop = document.querySelector(".list-container");
+
+    // Click event listener for follower buttons
+    const followers = document.querySelectorAll('.follower');
+    followers.forEach(follower => {
+        follower.addEventListener('click', () => {
             const relList = document.querySelector("#follower-list");
-            backDrop.classList.add("list-container-active");
-            relList.classList.add("rel-list-active");
-            relList.innerHTML = document.querySelector("#follower-list").innerHTML;
+            showList(relList);
         });
-        
-        
+    });
+
+    // Click event listener for following buttons
+    const followings = document.querySelectorAll('.following');
+    followings.forEach(following => {
         following.addEventListener('click', () => {
-            const relList = document.querySelector("#following-list")
-            backDrop.classList.add('list-container-active');
-            relList.classList.add('rel-list-active');
-            relList.innerHTML = document.querySelector("#following-list").innerHTML;
+            const relList = document.querySelector("#following-list");
+            showList(relList);
         });
-        
+    });
 
+    // Click event listener for backdrop to handle clicks outside lists
+    backDrop.addEventListener('click' , function(event){
+        const followerList = document.querySelector('#follower-list');
+        const followingList = document.querySelector('#following-list');
+        if (!followerList.contains(event.target) && !followingList.contains(event.target)) {
+            hideLists();
+        }
+    });
 
+    function showList(list) {
+        backDrop.classList.add("list-container-active");
+        list.classList.add("rel-list-active");
+        list.innerHTML = document.querySelector("#" + list.id).innerHTML;
+    }
 
-        backDrop.addEventListener('click' , function(event){
-            const followerList = document.querySelector('#follower-list');
-            const followingList = document.querySelector('#following-list');
-            var isClickInside = (!followerList.contains(event.target))
-            if (isClickInside){
-                backDrop.classList.remove('list-container-active');
-                followerList.classList.remove('rel-list-active');
-                followingList.classList.remove('rel-list-active');
-            }
+    function hideLists() {
+        backDrop.classList.remove('list-container-active');
+        document.querySelectorAll('.rel-list-active').forEach(list => {
+            list.classList.remove('rel-list-active');
         });
-
-
-
-
-
-
-        // backDrop.addEventListener('click', function(event) {
-        //     const relLists = document.querySelectorAll(".rel-list");
-        //     relLists.forEach(relList => {
-        //         var isClickInside = relList.contains(event.target);
-        //         console.log(isClickInside);
-        //     });
-        //     if (!isClickInside) {
-        //         relList.classList.remove("rel-list-active");
-        //         backDrop.classList.remove("list-container-active");
-        //     }
-        // });
+    }
+});
 
     </script>
 {% endblock %}

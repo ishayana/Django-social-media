@@ -39,6 +39,7 @@
         display: flex;
         z-index: 2;
         backdrop-filter: blur(13px) saturate(180%);
+        -webkit-backdrop-filter: blur(10px) saturate(180%);
         background-color: rgba(17, 25, 40, 0.5);
         transition: all .5s cubic-bezier(0.45, 0.38, 0, 0.99);
     }
