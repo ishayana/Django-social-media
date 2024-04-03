@@ -119,13 +119,11 @@ class PostDetailsView(LoginRequiredMixin, View):
         requsername = request.user.username
         post = self.post_instance
         comments = post.postcomment.filter(is_reply=False)
-        commentsNum = comments.count() if comments else ''
         context = {
             'username' : post.author.username,
             'post' : post,
             'requsername' : requsername,
             'comments' : comments,
-            'commentsNum' : commentsNum,
             'commentform' : commentform,
                 }
         return render(request, self.template_name ,context)

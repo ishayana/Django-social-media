@@ -25,8 +25,11 @@ class PostModel(models.Model):
         return reverse('userprofile:post', args=[self.author.username, self.id])
     
     def get_author_username(self):
-        return self.author.get_username()
+        return self.author.get_username
     
+
+    def comments_counter(self):
+        return self.postcomment.filter(is_reply=False).count()
 
 class FollowModel(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
@@ -49,6 +52,6 @@ class CommentModel(models.Model):
     def __str__(self):
         return f'{self.description}'
 
-# class LikeModel(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='userliked')
-#     post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='likes')
+class LikeModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='userliked')
+    post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='likes')

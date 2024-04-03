@@ -38,7 +38,7 @@
             </button>
             <a class="comment" href="{% url 'userprofile:post' post.author.username post.id  %}">
                 <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
-                <p class="comment-count">{{ commentsNum }}</p>
+                <p class="comment-count">{{ post.comments_counter }}</p>
             </a>
             <button class="save" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
