@@ -84,7 +84,7 @@
     {% endif %}
 
     <!-- Load posts html -->
-    {% for post, commentsNum in posts_list %}
+    {% for post, commentsNum, like_status in posts_list %}
     {% include 'userprofile/include/post.html' %}
     {% endfor %}
     

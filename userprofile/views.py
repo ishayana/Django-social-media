@@ -1,4 +1,4 @@
-
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,7 +39,8 @@ class UserprofileView(LoginRequiredMixin, View):
         posts_list= []
         for post in posts:
             commetnNum = post.postcomment.filter(is_reply=False).count() or ''
-            posts_list.append((post, commetnNum))
+            like_status = post.user_like(request.user)
+            posts_list.append((post, commetnNum, like_status))
         
 
         
@@ -85,7 +86,6 @@ class UserfeedView(View):
         for post in posts:
             comments = post.postcomment.filter(is_reply=False).count() or ''
             like_status = post.user_like(request.user)
-            print(like_status)
             posts_list.append((post, comments, like_status))
 
         return render(request, self.template_name, {
@@ -155,7 +155,7 @@ class PostDeleteView(LoginRequiredMixin, View):
             messages.success(request, "Post deleted successfully!", 'success')
         else:
             messages.error(request, "You cann not delet this post!", 'danger')
-        return redirect('home:home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class PostUpdateView(LoginRequiredMixin, View):
     form_class = PostForm
@@ -198,7 +198,7 @@ class UserFollowView(LoginRequiredMixin, View):
         if not relation.exists():
             self.model.objects.create(follower=request.user, following=user_to_follow)
         
-        return redirect('userprofile:profile', request.user.username)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 #Unfollow user
 class UserUnfollowView(LoginRequiredMixin, View):
@@ -209,7 +209,7 @@ class UserUnfollowView(LoginRequiredMixin, View):
         relation = self.model.objects.filter(follower=request.user, following=user_to_unfollow)
         if relation.exists():
             self.model.objects.filter(follower=request.user, following=user_to_unfollow).delete()
-        return redirect('userprofile:profile', request.user.username)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 class CommentdetailsView(LoginRequiredMixin, View):
     model = CommentModel
@@ -262,6 +262,6 @@ class PostLikeView(LoginRequiredMixin, View):
             user_like.delete()
         else:
             LikeModel.objects.create(user=request.user, post_id=post_id)
+        next_page =request.GET.get('next', '/')
 
-
-        return redirect('home:home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
