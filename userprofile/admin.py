@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PostModel, FollowModel, CommentModel
+from .models import PostModel, FollowModel, CommentModel , LikeModel
 
 class PostModelAdmin(admin.ModelAdmin):
     list_display = ('author', 'description', 'created')
@@ -21,3 +21,5 @@ admin.site.register(FollowModel, FollowModelAdmin)
 @admin.register(CommentModel)
 class CommentModelAdmin(admin.ModelAdmin):
     list_display = ('reply', 'description', 'author', 'is_reply')
+
+admin.site.register(LikeModel)

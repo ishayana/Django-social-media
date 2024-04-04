@@ -33,17 +33,22 @@
             <br>
         {% endif %}
         <div class="post-footer-container">
-            <button class="like" href="#" onclick="toggleLikeImage('{{ post.id }}')">
-                <img class="post-icon" id="postlike_{{ post.id }}" src="{% static 'userprofile/img/post/like.png' %}"></img>
-            </button>
-            <a class="comment" href="{% url 'userprofile:post' post.author.username post.id  %}">
+            <a class="like" href="{% url 'userprofile:post_like' post.id %}">
+                {% if like_status %}
+                <img class="post-icon" src="{% static 'userprofile/img/post/liked.png' %}"></img>
+                {% else %}
+                <img class="post-icon" id="post-icon" src="{% static 'userprofile/img/post/like.png' %}"></img>
+                {% endif %}
+                <p class="comment-count">{{ post.like_counter }}</p>
+            </a>
+            <a class="icons" href="{% url 'userprofile:post' post.author.username post.id  %}">
                 <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
                 <p class="comment-count">{{ post.comments_counter }}</p>
             </a>
-            <button class="save" href="#">
+            <button class="icons" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
             </button>
-            <button class="share" href="#">
+            <button class="icons" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
             </button>
         </div>

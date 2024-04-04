@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from .forms import PostForm, PostUpdateForm, CommentForm
 from django.contrib import messages
-from .models import PostModel, FollowModel, CommentModel
+from .models import PostModel, FollowModel, CommentModel, LikeModel
 from django.urls import reverse
 import datetime
 import os
@@ -84,14 +84,18 @@ class UserfeedView(View):
         posts_list = []
         for post in posts:
             comments = post.postcomment.filter(is_reply=False).count() or ''
-            posts_list.append((post, comments))
+            like_status = post.user_like(request.user)
+            print(like_status)
+            posts_list.append((post, comments, like_status))
 
         return render(request, self.template_name, {
             'friends' : friends,
             'posts' : posts,
             'posts_list' : posts_list,
             'requsername' : requsername,
-            'postform' : postform})
+            'postform' : postform,
+            'like_status' : like_status
+            })
 
     def post(self, request):
         postform = self.form_class(request.POST, request.FILES)
@@ -246,3 +250,18 @@ class CommentdetailsView(LoginRequiredMixin, View):
         messages.error(request, 'Your comment posted!', 'error')
         return render(request, self.template_name, {'commentform' : commentform})
         
+class PostLikeView(LoginRequiredMixin, View):
+    model = LikeModel
+
+    def get(self, request, *args, **kwargs):
+        post_id = kwargs.get('post_id')
+        user_id = request.user.id
+
+        user_like = LikeModel.objects.filter(user=user_id, post=post_id)
+        if user_like.exists():
+            user_like.delete()
+        else:
+            LikeModel.objects.create(user=request.user, post_id=post_id)
+
+
+        return redirect('home:home')

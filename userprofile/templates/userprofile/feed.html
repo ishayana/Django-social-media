@@ -35,7 +35,7 @@ CircleUp
 {% include 'userprofile/include/postform.html' %}
 {{ following_posts }}
 <!-- include posts -->
-{% for post, commentsNum in posts_list %}
+{% for post, commentsNum, like_status in posts_list %}
     {% include 'userprofile/include/post.html' %}
 {% endfor %}
 {% endblock %}
@@ -44,26 +44,6 @@ CircleUp
 {% block script %}
 
 <script>
-    // Create a dictionary to store the current state of the like button for each post
-    var likeStates = {};
 
-    function toggleLikeImage(postId) {
-        var image = document.getElementById('postlike_' + postId);
-
-        // If the post is not in the likeStates dictionary, initialize the state to false
-        if (!(postId in likeStates)) {
-            likeStates[postId] = false;
-        }
-
-        // Toggle between the two images
-        likeStates[postId] = !likeStates[postId];
-
-        // Change the image source based on the current state
-        if (likeStates[postId]) {
-            image.src = "{% static 'userprofile/img/post/liked.png' %}";
-        } else {
-            image.src = "{% static 'userprofile/img/post/like.png' %}";
-        }
-    }
 </script>
 {% endblock %}

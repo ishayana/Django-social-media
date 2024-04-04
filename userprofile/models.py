@@ -31,6 +31,12 @@ class PostModel(models.Model):
     def comments_counter(self):
         return self.postcomment.filter(is_reply=False).count()
 
+    def like_counter(self):
+        return self.likes.all().count()
+    
+    def user_like(self, user):
+        return self.likes.filter(user=user, post_id=self).exists()
+
 class FollowModel(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
     following = models.ForeignKey(User, on_delete= models.CASCADE, related_name="following")
@@ -55,3 +61,6 @@ class CommentModel(models.Model):
 class LikeModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='userliked')
     post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='likes')
+
+    def __str__(self):
+        return f"{self.user} liked this post: {self.post}"

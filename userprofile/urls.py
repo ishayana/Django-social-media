@@ -14,6 +14,7 @@ urlpatterns = [
     path('follow/<str:username>/', views.UserFollowView.as_view(), name='user_follow'),
     path('unfollow/<str:username>', views.UserUnfollowView.as_view(), name='user_unfollow'),
     path('<str:username>/comment/<int:comment_id>', views.CommentdetailsView.as_view(), name='comment_details'),
+    path('<int:post_id>/like', views.PostLikeView.as_view(), name='post_like')
 #     path('<str:username>/comment/<int:comment_id>/delete', views.CommentDeleteView.as_view(), name='comment_delete'),
 #     path('<str:username>/comment/<int:commetn_id>/update', views.CommentUpdateView.as_view(), name='comment_update'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
