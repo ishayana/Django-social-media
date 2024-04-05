@@ -31,7 +31,10 @@ CircleUp
 
 
 {% block main %}
-
+<form class="search-form" action="" method="get">
+    {{ searchform }}
+    <button type="submit"><i class="fi fi-rr-search"></i></button>
+</form>
 {% include 'userprofile/include/postform.html' %}
 {{ following_posts }}
 <!-- include posts -->

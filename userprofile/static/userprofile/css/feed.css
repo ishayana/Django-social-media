@@ -73,3 +73,43 @@ hr.hr-users{
     background-color: rgb(255, 255, 255);
 }
 
+
+/* mani bar */
+
+.search-form {
+    float: right;
+    background-color: #0000001c;
+    width: 200px;
+    height: 35px;
+}
+
+#id_search {
+    height: inherit;
+    border: 1px;
+    color: rgb(14, 14, 14);
+    padding: 0 0 0 8px;
+    font-weight: 500;
+    font-family: "Open Sans", sans-serif;
+    background-color: transparent;
+}
+
+.fi-rr-search{
+    cursor: pointer;
+}
+
+.search-form button{
+    height: inherit;
+    border: none;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+}
+
+.search-form, .search-form input, #id_search {
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 630px) {
+    .search-form{
+        margin-top: 10px;
+    }
+}

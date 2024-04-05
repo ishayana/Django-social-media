@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from .forms import PostForm, PostUpdateForm, CommentForm
+from .forms import PostForm, PostUpdateForm, CommentForm, SearchForm
 from django.contrib import messages
 from .models import PostModel, FollowModel, CommentModel, LikeModel
 from django.urls import reverse
@@ -72,16 +72,22 @@ class UserfeedView(View):
     template_name = 'userprofile/feed.html'
     model = PostModel
     form_class = PostForm
+    search_form_class = SearchForm
 
 
     def get(self, request):
         following = FollowModel.objects.filter(follower=request.user).values('following')
         friends = FollowModel.objects.filter(follower__in=following, following=request.user)
-
+        
         # posts = PostModel.objects.filter(author__in=following).order_by('-created')
         postform = self.form_class()
         requsername = request.user.username
         posts = self.model.objects.all().order_by('-created')
+
+        # search form 
+        if request.GET.get('search'):
+            posts = posts.filter(description__contains=request.GET['search'])
+
         posts_list = []
         for post in posts:
             comments = post.postcomment.filter(is_reply=False).count() or ''
@@ -94,7 +100,7 @@ class UserfeedView(View):
             'posts_list' : posts_list,
             'requsername' : requsername,
             'postform' : postform,
-            'like_status' : like_status
+            'searchform' : self.search_form_class
             })
 
     def post(self, request):
