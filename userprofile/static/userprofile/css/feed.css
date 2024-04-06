@@ -24,6 +24,21 @@
     font-weight: 1000;
 }
 
+.nofriends{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 30vh;
+}
+
+.nofriends p {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 13px;
+    color: #00000067;
+    letter-spacing: -.5px;
+}
+
 .profile-btn {
     width: 10px;
 }

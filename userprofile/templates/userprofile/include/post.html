@@ -29,7 +29,11 @@
         </div>
         <a class="card" href="{% url 'userprofile:post' post.author.username post.id  %}">{{ post.description|linebreaksbr|safe }}</a>
         {% if post.image %}
-            <img class="post-img" src="{{ post.image.url }}" alt="post-image">
+            <div class="square-photo">
+                <a href="{{ post.image.url }}">
+                    <img class="post-img" src="{{ post.image.url }}" alt="post-image">
+                  </a>
+            </div>
             <br>
         {% endif %}
         <div class="post-footer-container">

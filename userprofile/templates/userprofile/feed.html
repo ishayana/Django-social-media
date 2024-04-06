@@ -24,6 +24,10 @@ CircleUp
                 </div>
                 <hr class="hr-users">
             {% endwith %}
+            {% empty %}
+            <section class="nofriends">
+                <p>No friends!</p>
+            </section>
             {% endfor %}
         </div>
     </div>
