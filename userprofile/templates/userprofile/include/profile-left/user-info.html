@@ -1,5 +1,5 @@
 <header class="user-info">
-    <div id="profile-btn" class="nav-icon">{{ username|slice:":1"|upper }}</div>
+    <div id="profile-btn"><img class="user-avatar" id="user-avatar" src="{{ avatar.url }}" alt=""></div>
     <h3>{{ username | capfirst }}</h3>
         {% if not is_following and request.user.username != username %}
             <div class="btn-follow">
@@ -17,7 +17,7 @@
         </button>
         <button class="following">
             <p>Following</p>
-            <p>{{ followings.count }}</p>
+            <p>{{ followings_list | length }}</p>
         </a>
         <button id="posts">
             <p>Posts</p>

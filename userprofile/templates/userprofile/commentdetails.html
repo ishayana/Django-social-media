@@ -50,15 +50,7 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
         </button>
         <a class="comment" href="{% url 'userprofile:comment_details' reply.author.username reply.id  %}">
             <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
-            {% with reply.replycomment.all.count as commentsNum %}
-                <p class="comment-count">
-                    {% if commentsNum %}
-                        {{ commentsNum }}
-                    {% else %}
-                        {{ '' }}
-                    {% endif %}
-                </p>
-            {% endwith %}
+            <p class="comment-count">{{ post.comments_counter }}</p>
         </a>
         <button class="save" href="#">
             <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>

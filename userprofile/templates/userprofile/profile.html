@@ -8,10 +8,10 @@
     <div class="list-container">
         <div id="follower-list" class="rel-list">
             <h3 id="h3-title">Follower</h3>
-                {% for item, is_following_req_user in follower_list %}
+                {% for item, is_following_req_user, avatar in follower_list %}
                     <div class="user-list">
                         <div id="user">
-                            <div id="profile-btn" class="nav-icon">{{ item.username|slice:":1"|upper }}</div>
+                            <div id="profile-btn"><img class="user-avatar" id="user-avatar" src="{{ avatar.url }}" alt=""></div>
                             <a id="username" href="{% url 'userprofile:profile' item.username %}">{{ item.username }}</a>
                         </div>
                         <div id="btn-relation">
@@ -33,11 +33,11 @@
     <div class="list-container">
         <div id="following-list" class="rel-list">
             <h3 id="h3-title">Following</h3>
-                {% for item in followings %}
+                {% for item, avatar in followings_list %}
                 <div class="user-list" href="{% url 'userprofile:profile' item.following %}">
                     <div id="user" >
-                        <div id="profile-btn" class="nav-icon">{{ item.following.username|slice:":1"|upper }}</div>
-                        <p id="username" >{{ item.following }}</p>
+                        <div id="profile-btn"><img class="user-avatar" id="user-avatar" src="{{ avatar.url }}" alt=""></div>
+                        <a id="username" href="{% url 'userprofile:profile' item.username %}">{{ item.username }}</a>
                     </div>
                     <div id="btn-relation">
                         <a href="{% url 'userprofile:user_unfollow' item.following %}" class="btn-unfollow">Unfollow</a>
@@ -84,7 +84,7 @@
     {% endif %}
 
     <!-- Load posts html -->
-    {% for post, commentsNum, like_status in posts_list %}
+    {% for post, commentsNum, like_status, avatar in posts_list %}
     {% include 'userprofile/include/post.html' %}
     {% endfor %}
     

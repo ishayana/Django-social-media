@@ -6,7 +6,7 @@
 <div class="nav-container">
     <a  href="{% url 'home:home' %}"><img class="nav-icon" src="{% static 'userprofile/img/home.png' %}" alt="Home"></img>
     <a  href="#"><img class="nav-icon" src="{% static 'userprofile/img/bell.png' %}" alt="Notification"></a>
-    <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon">{{ requsername|slice:":1"|upper }}</a>
+    <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ reqavatar }}" alt=""></a>
 </div>
 
 

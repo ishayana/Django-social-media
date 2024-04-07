@@ -65,11 +65,13 @@
     text-decoration: none;
     cursor: pointer;
 }
-#user > #profile-btn {
-    margin: 0 5px 0;
+
+#user #profile-btn #user-avatar {
+    margin:5px;
     width: 25px;
     height: 25px;
     font-size: 10px;
+    border-radius: 100%;
 }
 
 #username {

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .forms import PostForm, PostUpdateForm, CommentForm, SearchForm
 from django.contrib import messages
 from .models import PostModel, FollowModel, CommentModel, LikeModel
+from accounts.models import UserprofileModel
 from django.urls import reverse
 import datetime
 import os
@@ -24,6 +25,7 @@ class UserprofileView(LoginRequiredMixin, View):
 
     def get(self, request, username):
         #first letter of username for show on avatar
+        avatar = UserprofileModel.objects.get(user_id=self.user.id).avatar
         requsername = request.user.username
         postform = self.form_class
         is_owner = False
@@ -35,22 +37,30 @@ class UserprofileView(LoginRequiredMixin, View):
         if relation:
             is_following = True
         followers = self.followers
-        followings = self.followings
+        followings_list = []
+        for item in self.followings:
+            follower = UserprofileModel.objects.get(user_id=item.following.id)
+            followings_list.append((item.following, follower.avatar))
+
         posts_list= []
         for post in posts:
             commetnNum = post.postcomment.filter(is_reply=False).count() or ''
             like_status = post.user_like(request.user)
-            posts_list.append((post, commetnNum, like_status))
+            post_author = UserprofileModel.objects.get(user_id=post.author)
+            avatar = post_author.avatar
+            posts_list.append((post, commetnNum, like_status, avatar.url))
         
-
+        userprofile = UserprofileModel.objects.get(user_id=request.user)
+        reqavatar = userprofile.avatar.url
         
         follower_list = []
         for follower in followers:
             isFollowingReqUser = False
             isFollowingReqUser = FollowModel.objects.filter(follower=request.user, following=follower.follower).exists()
+            user = UserprofileModel.objects.get(user_id=follower.follower.id)
             if isFollowingReqUser:
                 isFollowingReqUser = True
-            follower_list.append((follower.follower, isFollowingReqUser))
+            follower_list.append((follower.follower, isFollowingReqUser, user.avatar))
 
         year = datetime.datetime.now().year
         return render(request, self.template_name , {
@@ -61,10 +71,12 @@ class UserprofileView(LoginRequiredMixin, View):
             'posts' : posts,
             'posts_list' : posts_list,
             'is_following' : is_following,
-            'followings': followings,
+            'followings_list': followings_list,
             'followers' : followers,
             'follower_list' : follower_list,
             'year' : year,
+            'reqavatar' : reqavatar,
+            'avatar' : avatar
             })
 
 #Home page for authenticated users. (UserFeed page)
@@ -78,11 +90,19 @@ class UserfeedView(View):
     def get(self, request):
         following = FollowModel.objects.filter(follower=request.user).values('following')
         friends = FollowModel.objects.filter(follower__in=following, following=request.user)
-        
+        friends_list = []
+        for item in friends:
+            user = UserprofileModel.objects.get(user_id=item.follower.id)
+            user_avatar = user.avatar
+            friends_list.append((item, user_avatar.url))
+
         # posts = PostModel.objects.filter(author__in=following).order_by('-created')
         postform = self.form_class()
         requsername = request.user.username
         posts = self.model.objects.all().order_by('-created')
+
+        userprofile = UserprofileModel.objects.get(user_id=request.user)
+        reqavatar = userprofile.avatar.url
 
         # search form 
         if request.GET.get('search'):
@@ -92,15 +112,18 @@ class UserfeedView(View):
         for post in posts:
             comments = post.postcomment.filter(is_reply=False).count() or ''
             like_status = post.user_like(request.user)
-            posts_list.append((post, comments, like_status))
+            post_author = UserprofileModel.objects.get(user_id=post.author)
+            avatar = post_author.avatar
+            posts_list.append((post, comments, like_status, avatar.url))
 
         return render(request, self.template_name, {
-            'friends' : friends,
+            'friends_list' : friends_list,
             'posts' : posts,
             'posts_list' : posts_list,
             'requsername' : requsername,
             'postform' : postform,
-            'searchform' : self.search_form_class
+            'searchform' : self.search_form_class,
+            'reqavatar' : reqavatar
             })
 
     def post(self, request):
@@ -127,14 +150,27 @@ class PostDetailsView(LoginRequiredMixin, View):
     def get(self, request, username, post_id):
         commentform = self.form_class
         requsername = request.user.username
+        user = UserprofileModel.objects.get(user_id=self.post_instance.author)
+        avatar = user.avatar.url
+
+        userprofile = UserprofileModel.objects.get(user_id=request.user)
+        reqavatar = userprofile.avatar.url
+
         post = self.post_instance
+        comments_list = []
         comments = post.postcomment.filter(is_reply=False)
+        for comment in comments:
+            user = UserprofileModel.objects.get(user_id=comment.author)
+            comments_list.append((comment, user.avatar.url))
         context = {
             'username' : post.author.username,
             'post' : post,
             'requsername' : requsername,
-            'comments' : comments,
+            'comments_list' : comments_list,
             'commentform' : commentform,
+            'avatar' : avatar,
+            'reqavatar' : reqavatar
+            
                 }
         return render(request, self.template_name ,context)
     
@@ -225,6 +261,7 @@ class CommentdetailsView(LoginRequiredMixin, View):
     def setup(self, request, *args, **kwargs):
         self.user = get_object_or_404(User, username=kwargs['username'])
         self.comment = self.model.objects.get(author=self.user, pk=kwargs['comment_id'])
+        self.bio = UserprofileModel.objects.get(user_id=self.user)
         self.commentNum = CommentModel.objects.filter(reply=self.comment).count()
         return super().setup(self, request, *args, **kwargs)
 
@@ -234,11 +271,13 @@ class CommentdetailsView(LoginRequiredMixin, View):
         requsername = request.user.username
         comment = self.comment
         user = self.user
+        avatar = self.bio.avatar.url
         context = {
             'comment' : comment,
             'requsername' : requsername,
             'commentform' : commentform,
-            'commentNum' : commentNum
+            'commentNum' : commentNum,
+            'avatar': avatar
         }
         return render(request, self.template_name, context)
 

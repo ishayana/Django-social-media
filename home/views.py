@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from accounts.forms import RegistrationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from userprofile.views import UserfeedView
@@ -53,6 +54,8 @@ class HomeView(View):
                 password= cd['password']
                 )
             messages.success(request, 'Your account created successfully!', 'success')
+            user = authenticate(username=cd['username'], password=cd['password'])
+            login(request, user)
             return redirect('home:home')
         return render(request, self.template_name , { 'form' : form })
     

@@ -16,10 +16,10 @@ CircleUp
             <h3>Friends</h3>
         </div>
         <div class="following">
-            {% for item in friends %}
-            {% with item.follower as user %}
+            {% for friend, avatar in friends_list %}
+            {% with friend.follower as user %}
                 <div class="friends">
-                    <div id="profile-btn" class="nav-icon">{{ user.username|slice:":1"|upper }}</div>
+                    <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatar }}" alt=""></a>
                     <a id="username" href="{% url 'userprofile:profile' user.username %}">{{ user.username }}</a>
                 </div>
                 <hr class="hr-users">
@@ -42,7 +42,7 @@ CircleUp
 {% include 'userprofile/include/postform.html' %}
 {{ following_posts }}
 <!-- include posts -->
-{% for post, commentsNum, like_status in posts_list %}
+{% for post, commentsNum, like_status, avatar in posts_list %}
     {% include 'userprofile/include/post.html' %}
 {% endfor %}
 {% endblock %}

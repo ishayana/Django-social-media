@@ -13,11 +13,12 @@
     flex-direction: column;
     width: 100%;
 }
-.user-info > #profile-btn{
+
+.user-info  #profile-btn, #user-avatar{
     width: 60px;
     height: 60px;
-    font-size: 25px;
 }
+
 header > h3 {
     font-family: 'Noto Sans', sans-serif;
     margin: 10px 0 0 0;
