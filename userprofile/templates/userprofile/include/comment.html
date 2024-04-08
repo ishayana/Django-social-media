@@ -10,7 +10,7 @@
         <!-- profile photo -->
         <div class="post-header-container">
             <div class="author">
-                <a href="{% url 'userprofile:profile' comment.author.username %}" id="profile-btn" class="nav-icon">{{ comment.author.username|slice:":1"|upper }}</a>
+                <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatar }}" alt=""></a>
                 <a href="{% url 'userprofile:profile' comment.author.username %}" id="username-btn">{{ comment.author.username }}</a>
             </div>
             <div class="dropdown">
@@ -27,25 +27,22 @@
         </div>
         <a class="card" href="{% url 'userprofile:comment_details' comment.author comment.id  %}">{{ comment.description|linebreaksbr|safe }}</a>
         <div class="post-footer-container">
-            <button class="like" href="#" onclick="toggleLikeImage('{{ comment.id }}')">
-                <img class="post-icon" id="postlike_{{ post.id }}" src="{% static 'userprofile/img/post/like.png' %}"></img>
-            </button>
-            <a class="comment" href="{% url 'userprofile:comment_details' comment.author.username comment.id  %}">
-                <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
-                {% with comment.replycomment.all.count as commentsNum %}
-                <p class="comment-count">
-                    {% if commentsNum %}
-                        {{ commentsNum }}
-                    {% else %}
-                        {{ '' }}
-                    {% endif %}
-                </p>
-                {% endwith %}
+            <a class="like" href="{% url 'userprofile:post_like' comment.id %}">
+                {% if like_status %}
+                <img class="post-icon" src="{% static 'userprofile/img/post/liked.png' %}"></img>
+                {% else %}
+                <img class="post-icon" id="post-icon" src="{% static 'userprofile/img/post/like.png' %}"></img>
+                {% endif %}
+                <p class="comment-count"></p>
             </a>
-            <button class="save" href="#">
+            <a class="icons" href="{% url 'userprofile:post' comment.author.username comment.id  %}">
+                <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
+                <p class="comment-count">{{ comment.reply_counter }}</p>
+            </a>
+            <button class="icons" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
             </button>
-            <button class="share" href="#">
+            <button class="icons" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
             </button>
         </div>

@@ -44,7 +44,7 @@
             <button class="like" href="#" onclick="toggleLikeImage('{{ comment.id }}')">
                 <img class="post-icon" id="postlike_{{ comment.id }}" src="{% static 'userprofile/img/post/like.png' %}"></img>
             </button>
-            <a class="comment" href="{% url 'userprofile:comment_details' comment.author.username comment.id  %}">
+            <a class="icons" href="{% url 'userprofile:comment_details' comment.author.username comment.id  %}">
                 <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
                 {% with comment.replycomment.all.count as commentsNum %}
                 <p class="comment-count">
@@ -56,10 +56,10 @@
                 </p>
                 {% endwith %}
             </a>
-            <button class="save" href="#">
+            <button class="icons" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
             </button>
-            <button class="share" href="#">
+            <button class="icons" href="#">
                 <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
             </button>
         </div>

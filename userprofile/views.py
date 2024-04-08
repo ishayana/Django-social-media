@@ -261,7 +261,7 @@ class CommentdetailsView(LoginRequiredMixin, View):
     def setup(self, request, *args, **kwargs):
         self.user = get_object_or_404(User, username=kwargs['username'])
         self.comment = self.model.objects.get(author=self.user, pk=kwargs['comment_id'])
-        self.bio = UserprofileModel.objects.get(user_id=self.user)
+        self.bio = UserprofileModel.objects.get(user_id=self.comment.author)
         self.commentNum = CommentModel.objects.filter(reply=self.comment).count()
         return super().setup(self, request, *args, **kwargs)
 
@@ -270,14 +270,23 @@ class CommentdetailsView(LoginRequiredMixin, View):
         commentform = self.form_class
         requsername = request.user.username
         comment = self.comment
+
+        userprofile = UserprofileModel.objects.get(user_id=request.user)
+        reqavatar = userprofile.avatar.url
+        reply_list = []
+        for reply in comment.replycomment.all():
+            avatar = UserprofileModel.objects.get(user_id=reply.author).avatar.url
+            reply_list.append((reply, avatar))
         user = self.user
         avatar = self.bio.avatar.url
         context = {
             'comment' : comment,
+            'reply_list' : reply_list,
             'requsername' : requsername,
             'commentform' : commentform,
             'commentNum' : commentNum,
-            'avatar': avatar
+            'avatar': avatar,
+            'reqavatar' : reqavatar
         }
         return render(request, self.template_name, context)
 

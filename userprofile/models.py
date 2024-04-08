@@ -57,6 +57,9 @@ class CommentModel(models.Model):
 
     def __str__(self):
         return f'{self.description}'
+    
+    def reply_counter(self):
+        return CommentModel.objects.filter(reply=self, is_reply=True).count()
 
 class LikeModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='userliked')

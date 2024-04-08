@@ -19,7 +19,7 @@
         <input class="submit-img" type="image" src="{% static 'userprofile/img/postdetails/sendcomment.png' %}" alt="send-comment">
     </div>
 </form>
-{% for reply in comment.replycomment.all %}
+{% for reply, avatar in reply_list %}
 <hr class="post-line" style="border: 0;
 height: 0;
 border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -28,7 +28,7 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
     <!-- profile photo -->
     <div class="post-header-container">
         <div class="author">
-            <a href="{% url 'userprofile:profile' reply.author.username %}" id="profile-btn" class="nav-icon">{{ reply.author.username|slice:":1"|upper }}</a>
+            <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatar }}" alt=""></a>
             <a href="{% url 'userprofile:profile' reply.author.username %}" id="username-btn">{{ reply.author.username }}</a>
         </div>
         <div class="dropdown">
@@ -48,14 +48,14 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
         <button class="like" href="#" onclick="toggleLikeImage('{{ comment.id }}')">
             <img class="post-icon" id="postlike_{{ post.id }}" src="{% static 'userprofile/img/post/like.png' %}"></img>
         </button>
-        <a class="comment" href="{% url 'userprofile:comment_details' reply.author.username reply.id  %}">
+        <a class="icons" href="{% url 'userprofile:comment_details' reply.author.username reply.id  %}">
             <img class="post-icon" src="{% static 'userprofile/img/post/comment.png' %}"></img>
             <p class="comment-count">{{ post.comments_counter }}</p>
         </a>
-        <button class="save" href="#">
+        <button class="icons" href="#">
             <img class="post-icon" src="{% static 'userprofile/img/post/bookmark.png' %}"></img>
         </button>
-        <button class="share" href="#">
+        <button class="icons" href="#">
             <img class="post-icon" src="{% static 'userprofile/img/post/share.png' %}"></img>
         </button>
     </div>
