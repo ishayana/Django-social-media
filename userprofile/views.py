@@ -1,9 +1,10 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect
+from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from .forms import PostForm, PostUpdateForm, CommentForm, SearchForm
+from .forms import PostForm, PostUpdateForm, CommentForm, SearchForm, UserbioForm
 from django.contrib import messages
 from .models import PostModel, FollowModel, CommentModel, LikeModel
 from accounts.models import UserprofileModel
@@ -50,8 +51,7 @@ class UserprofileView(LoginRequiredMixin, View):
             avatar = post_author.avatar
             posts_list.append((post, commetnNum, like_status, avatar.url))
         
-        userprofile = UserprofileModel.objects.get(user_id=request.user)
-        reqavatar = userprofile.avatar.url
+        reqavatar = request.user.userprofilemodel.avatar.url
         
         follower_list = []
         for follower in followers:
@@ -92,17 +92,14 @@ class UserfeedView(View):
         friends = FollowModel.objects.filter(follower__in=following, following=request.user)
         friends_list = []
         for item in friends:
-            user = UserprofileModel.objects.get(user_id=item.follower.id)
-            user_avatar = user.avatar
+            user_avatar = item.follower.userprofilemodel.avatar
             friends_list.append((item, user_avatar.url))
-
         # posts = PostModel.objects.filter(author__in=following).order_by('-created')
         postform = self.form_class()
         requsername = request.user.username
         posts = self.model.objects.all().order_by('-created')
 
-        userprofile = UserprofileModel.objects.get(user_id=request.user)
-        reqavatar = userprofile.avatar.url
+        reqavatar = request.user.userprofilemodel.avatar.url
 
         # search form 
         if request.GET.get('search'):
@@ -112,8 +109,7 @@ class UserfeedView(View):
         for post in posts:
             comments = post.postcomment.filter(is_reply=False).count() or ''
             like_status = post.user_like(request.user)
-            post_author = UserprofileModel.objects.get(user_id=post.author)
-            avatar = post_author.avatar
+            avatar = post.author.userprofilemodel.avatar
             posts_list.append((post, comments, like_status, avatar.url))
 
         return render(request, self.template_name, {
@@ -151,17 +147,16 @@ class PostDetailsView(LoginRequiredMixin, View):
         commentform = self.form_class
         requsername = request.user.username
         user = UserprofileModel.objects.get(user_id=self.post_instance.author)
-        avatar = user.avatar.url
+        avatar = self.user.userprofilemodel.avatar.url
 
-        userprofile = UserprofileModel.objects.get(user_id=request.user)
-        reqavatar = userprofile.avatar.url
+        reqavatar = request.user.userprofilemodel.avatar.url
 
         post = self.post_instance
         comments_list = []
         comments = post.postcomment.filter(is_reply=False)
         for comment in comments:
-            user = UserprofileModel.objects.get(user_id=comment.author)
-            comments_list.append((comment, user.avatar.url))
+            avatarco = comment.author.userprofilemodel.avatar.url
+            comments_list.append((comment, avatarco))
         context = {
             'username' : post.author.username,
             'post' : post,
@@ -210,12 +205,19 @@ class PostUpdateView(LoginRequiredMixin, View):
     def get(self, request, username, post_id):
         requsername = request.user.username
         post = self.post_instance
+        reqavatar = request.user.userprofilemodel.avatar.url
         if not post.author_id == request.user.id:
             messages.error(request, "You can not edit this post!", 'danger')
             return redirect("home:home")
         author_id = post.author.id
         form = self.form_class(instance=post)
-        return render(request, self.template_name, {'formupdate' : form, 'requsername' : requsername, 'author_id' : author_id})
+        return render(request, self.template_name,
+            {'formupdate' : form,
+            'requsername' : requsername,
+            'author_id' : author_id,
+            'reqavatar' : reqavatar
+                                                    
+                                                    })
     
     def post(self, request, username, post_id):
         post = self.post_instance
@@ -270,9 +272,8 @@ class CommentdetailsView(LoginRequiredMixin, View):
         commentform = self.form_class
         requsername = request.user.username
         comment = self.comment
-
-        userprofile = UserprofileModel.objects.get(user_id=request.user)
-        reqavatar = userprofile.avatar.url
+        
+        reqavatar = request.user.userprofilemodel.avatar.url
         reply_list = []
         for reply in comment.replycomment.all():
             avatar = UserprofileModel.objects.get(user_id=reply.author).avatar.url
@@ -319,3 +320,25 @@ class PostLikeView(LoginRequiredMixin, View):
         next_page =request.GET.get('next', '/')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class UserbioView(LoginRequiredMixin, View):
+    model = UserprofileModel
+    form_class = UserbioForm
+    template_name = 'userprofile/userbio.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.username != kwargs['username']:
+            return redirect('home:home')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(instance=request.user.userprofilemodel)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+
+        

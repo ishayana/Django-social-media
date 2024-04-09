@@ -1,5 +1,6 @@
 from django import forms
 from .models import PostModel, CommentModel
+from accounts.models import UserprofileModel
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -36,3 +37,10 @@ class CommentForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=225, label=False, widget=forms.TextInput(attrs={'placeholder' : 'Search...'}))
+
+
+
+class UserbioForm(forms.ModelForm):
+    class Meta:
+        model = UserprofileModel
+        fields = ['bio', 'avatar']

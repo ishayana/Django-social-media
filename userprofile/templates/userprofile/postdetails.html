@@ -19,12 +19,12 @@
         <input class="submit-img" type="image" src="{% static 'userprofile/img/postdetails/sendcomment.png' %}" alt="send-comment">
     </div>
 </form>
-    {% for comment, avatar in comments_list %}
+    {% for comment, avatarcom in comments_list %}
     <div class="card-container">
         <!-- profile photo -->
         <div class="post-header-container">
             <div class="author">
-                <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatar }}" alt=""></a>
+                <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatarcom }}" alt=""></a>
                 <a href="{% url 'userprofile:profile' comment.author.username %}" id="username-btn">{{ comment.author.username }}</a>
             </div>
             <div class="dropdown">

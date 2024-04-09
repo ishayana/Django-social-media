@@ -16,7 +16,7 @@
         <div class="card-container">
             <!-- profile photo -->
             <div class="post-header-container">
-                <a href="#" id="profile-btn" class="nav-icon">{{ requsername|slice:":1"|upper }}</a>
+                <div id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ reqavatar }}" alt=""></div>
                 {% if author_id == request.user.id %}
                     <input class="update-btn" type="submit" value="Update">
 

@@ -11,7 +11,7 @@
         <!-- profile photo -->
         <div class="post-header-container">
             <div class="author">
-                <a href="{% url 'userprofile:profile' requsername %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatar }}" alt=""></a>
+                <a href="{% url 'userprofile:profile' post.author.username %}" id="profile-btn" class="nav-icon"><img class="user-avatar" src="{{ avatar }}" alt=""></a>
                 <a href="{% url 'userprofile:profile' post.author.username %}" id="username-btn">{{ post.author.username }}</a>
                 <div class="timesince">•    {{ post.created | timesince_custom }}</div>
             </div>
