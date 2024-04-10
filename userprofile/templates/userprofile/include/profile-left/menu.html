@@ -1,7 +1,7 @@
 {% load static %}
 <section class="menu-container">
     <ul class="menu">
-        <li><a href="{% url 'userprofile:userbio' request.user.username %}"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/settings.png' %}" alt=""><p>Edit Profile</p></a></li>
+        <li id="edit-profile"><a href="{% url 'userprofile:userbio' request.user.username %}"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/settings.png' %}" alt=""><p>Edit Profile</p></a></li>
         <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/messages.png' %}" alt=""><p>Message</p></a></li>
         <li><a href="#"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/support.png' %}" alt=""><p>Support</p></a></li>
         <li><a id="signout-btn" href="{% url 'accounts:logout' %}"><img class="menu-img" src="{% static 'userprofile/img/profileLeft/sign-out.png' %}" alt=""><p>Logout</p></a></li>

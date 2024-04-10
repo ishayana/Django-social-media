@@ -336,9 +336,13 @@ class UserbioView(LoginRequiredMixin, View):
         form = self.form_class(instance=request.user.userprofilemodel)
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
-        form = self.form_class(request.POST)
+    def post(self, request,*args, **kwargs):
+
+        form = self.form_class(request.POST, instance=request.user.userprofilemodel)
         if form.is_valid():
             form.save()
-
+            messages.success(request, 'Your profile changes have been successfully saved.', 'success')
+            return redirect('userprofile:profile', kwargs['username'])
+        return render(request, self.template_name, {'form': form})
+    
         
