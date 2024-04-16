@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from accounts.forms import RegistrationForm
+from .forms import BlogsearchForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from userprofile.views import UserfeedView
+from .models import BlogModel
 
 
 #In this section we mixin two veiws on one URL:
@@ -62,3 +64,30 @@ class HomeView(View):
 class PageNotFound(View):
     def get(self, request):
         return render(request, 'errors/404.html')
+    
+
+class BlogView(View):
+    model = BlogModel
+    
+    template_name = 'home/blog.html'
+    def get(self, request):
+        blogs = BlogModel.objects.all().order_by('-created')
+        if request.GET.get('search'):
+            blogs = BlogModel.objects.filter(text__contains=request.GET['search'], title__contains=request.GET['search'])
+        searchform = BlogsearchForm
+        blogs_list = []
+        for blog in blogs:
+            blog = blog
+            blog_images = blog.blog_images()
+            blogs_list.append((blog, blog_images))
+
+        return render(request, self.template_name, {'searchform': searchform, 'blogs_list':blogs_list, 'blogs':blogs})
+    
+
+class BlogdetailsView(View):
+    model = BlogModel
+    template_name = 'home/blogdetails.html'
+
+    def get(self, request, *args, **kwargs):
+        blog = BlogModel.objects.get(pk=kwargs.get('blog_id'))
+        return render(request, self.template_name, {'blog':blog})

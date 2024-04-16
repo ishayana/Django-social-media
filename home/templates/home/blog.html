@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home/css/blog.css' %}">
+{% endblock %}
+
+{% block title %}
+    Blogs
+{% endblock %}
+
+
+{% block body %}
+    <section class="search-bar">
+        <h1 class="title-pg">Recent blog posts</h1>
+        <form class="search-form" action="" method="get">
+            {{ searchform }}
+            <button type="submit"><i class="fi fi-rr-search"></i></button>
+        </form>
+    </section>
+    <main>
+        <article class="container">
+            {% for blog, image_items in blogs_list %}
+            <a class="card"  href="{% url 'home:blog_details' blog.id %}">
+                    <div class="image-container">
+                        <img src="{{ blog.thumbnail.url }}" alt="">
+                    </div>
+                    <div class="blog-content">
+                        <h1 class="blog-title">{{ blog.title|truncatechars:30 }}</h1>
+                        <p class="blog-txt">{{ blog.text|truncatechars:85 }}</p>
+                        <h5 class="blog-created">CircleUp • {{ blog.created }}</h5>
+                    </div>
+
+                </a>
+                {% endfor %}
+        </article>
+    </main>
+{% endblock %}

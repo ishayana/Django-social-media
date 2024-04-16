@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home/css/blogdetails.css' %}">
+{% endblock %}
+
+{% block title %}
+    CircleUp: {{ blog.title|truncatechars:20 }}
+{% endblock %}
+
+
+{% block body %}
+<main>
+    <article class="blog-post">
+        <img src="{{ blog.thumbnail.url }}" alt="Blog Thumbnail" class="blog-thumbnail">
+        <div class="blog-content">
+            <p class="blog-date">{{ blog.created }}</p>
+            <h1 class="blog-title">{{ blog.title }}</h1>
+            <p class="blog-text">{{ blog.text }}</p>
+        </div>
+    </article>
+</main>
+{% endblock %}

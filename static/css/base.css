@@ -11,7 +11,7 @@
     padding: 0;
 }
 
-li, a, button {
+li a, button {
     font-family: "Dosis", sans-serif;
     font-weight: 700;
     font-size: 13px;

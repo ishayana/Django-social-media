@@ -1,0 +1,54 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    width: 100%;
+    height: auto;
+    background-color: white;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Blog post styles */
+.blog-post {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 4px;
+}
+
+.blog-thumbnail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.blog-content {
+    line-height: 1.6;
+}
+
+.blog-date {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .blog-title {
+        font-size: 2.5rem;
+    }
+}

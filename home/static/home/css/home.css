@@ -6,6 +6,12 @@
     src: url('../../../static/fonts/coolvetica/coolvetica rg.otf');
 }
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .reg-aligner {
     display: flex;
     justify-content: center;
