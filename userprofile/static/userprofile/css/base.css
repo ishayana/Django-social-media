@@ -55,6 +55,7 @@ body{
 
 .right-bar{
     position: relative;
+    overflow-y: scroll;
     right: 40px;
     border-radius: 0 45px 45px 0;
 }

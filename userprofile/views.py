@@ -10,7 +10,7 @@ from .models import PostModel, FollowModel, CommentModel, LikeModel
 from accounts.models import UserprofileModel
 from django.urls import reverse
 import datetime
-import os
+from home.models import BlogModel
 
 #UserProfile page
 class UserprofileView(LoginRequiredMixin, View):
@@ -105,6 +105,7 @@ class UserfeedView(View):
         if request.GET.get('search'):
             posts = posts.filter(description__contains=request.GET['search'])
 
+        blogs = BlogModel.objects.all().order_by('created')
         posts_list = []
         for post in posts:
             comments = post.postcomment.filter(is_reply=False).count() or ''
@@ -119,7 +120,8 @@ class UserfeedView(View):
             'requsername' : requsername,
             'postform' : postform,
             'searchform' : self.search_form_class,
-            'reqavatar' : reqavatar
+            'reqavatar' : reqavatar,
+            'blogs' : blogs
             })
 
     def post(self, request):

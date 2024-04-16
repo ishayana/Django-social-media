@@ -48,6 +48,29 @@ CircleUp
 {% endblock %}
 
 
+{% block right %}
+    <div class="right">
+        <div class="right-title">
+            <h3>Blogs</h3>
+        </div>
+        <div class="blogs">
+            {% for blog in blogs %}
+            <a class="blog"  href="{% url 'home:blog_details' blog.id %}">
+                <div class="image-container">
+                    <img src="{{ blog.thumbnail.url }}" alt="">
+                </div>
+                <div class="blog-content">
+                    <h1 class="blog-title">{{ blog.title|truncatechars:30 }}</h1>
+                    <p class="blog-txt">{{ blog.text|truncatechars:85 }}</p>
+                    <h5 class="blog-created">CircleUp • {{ blog.created }}</h5>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
 {% block script %}
 
 <script>
