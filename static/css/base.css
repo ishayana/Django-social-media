@@ -11,6 +11,10 @@
     padding: 0;
 }
 
+body{
+    overflow: hidden;
+}
+
 li a, button {
     font-family: "Dosis", sans-serif;
     font-weight: 700;

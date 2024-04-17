@@ -43,6 +43,7 @@ class UserprofileView(LoginRequiredMixin, View):
             follower = UserprofileModel.objects.get(user_id=item.following.id)
             followings_list.append((item.following, follower.avatar))
 
+        blogs = BlogModel.objects.all().order_by('created')
         posts_list= []
         for post in posts:
             commetnNum = post.postcomment.filter(is_reply=False).count() or ''
@@ -76,7 +77,8 @@ class UserprofileView(LoginRequiredMixin, View):
             'follower_list' : follower_list,
             'year' : year,
             'reqavatar' : reqavatar,
-            'avatar' : avatar
+            'avatar' : avatar,
+            'blogs' : blogs
             })
 
 #Home page for authenticated users. (UserFeed page)
