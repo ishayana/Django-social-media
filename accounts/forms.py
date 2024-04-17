@@ -31,8 +31,10 @@ class RegistrationForm(forms.Form):
         user = User.objects.filter(username=username).exists()
         if user:
             raise ValidationError('This username taken already!')
-        return username
+        return username.lower()
     
+
+
     #split fullname field
     def clean_fullname(self):
         fullname = self.cleaned_data['fullname']
@@ -46,6 +48,16 @@ class RegistrationForm(forms.Form):
                 self.cleaned_data['lastname'] = ''    
         else:
             raise ValidationError("It seems like you didn't insert your Fullname!")
+    
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if len(password) < 8:
+            raise ValidationError('Your password must be more than 8 characters!')
+        digit_num = sum(1 for char in password if char.isdigit())
+        if digit_num < 4:
+            raise ValidationError('Your password must contain at least 4 digits!')
+        return password
+            
 
     def clean(self):
         cleaned_data = super().clean()
@@ -65,6 +77,11 @@ class LoginForm(forms.Form):
 
     username = forms.CharField(max_length=225, label=False ,widget=forms.TextInput(attrs={'placeholder' : 'Username'}))
     password = forms.CharField(label=False, widget=forms.PasswordInput(attrs={'placeholder' : 'Password'}))
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        usernamelower = username.lower()
+        return usernamelower
 
 # customize email password reset form 
 class UserPasswordResetForm(PasswordResetForm):
