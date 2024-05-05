@@ -19,7 +19,7 @@ Welcome to **CircleUp** 👋, my social media platform! This project is built us
 1. Clone the repository:
 
 ```bash
-  git Clone https://github.com/ishayana/Django-social-media
+  git Clone https://github.com/ishayana/django-social-media
 ```
     
 2. Navigate to the project directory:
